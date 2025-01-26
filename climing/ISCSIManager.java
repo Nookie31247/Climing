@@ -2,6 +2,7 @@ package climing;
 
 public class ISCSIManager {
     RunUbuntuCommand command = new RunUbuntuCommand();
+    ErrorLogManager error = new ErrorLogManager();
 
     /// iSCSI에 새로운 타겟을 추가하고, 추가한 타겟에 생성한 서브볼륨을 연결합니다.
     /// 유저 접속 번호를 입력받습니다.
@@ -19,7 +20,7 @@ public class ISCSIManager {
 
             return true;
         } catch (Exception e) {
-            e.printStackTrace();
+            error.getError(e);
             return false;
         }
 
@@ -34,7 +35,7 @@ public class ISCSIManager {
             return true;
 
         } catch (Exception e) {
-            e.printStackTrace();
+            error.getError(e);
             return false;
         }
     }

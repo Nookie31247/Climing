@@ -3,6 +3,7 @@ package climing;
 /// Btrfs 서브볼륨 관리 모듈
 public class BtrfsManger {
     RunUbuntuCommand command = new RunUbuntuCommand();
+    ErrorLogManager error = new ErrorLogManager();
 
     /// btrfs 서브볼륨을 추가하기 위한 메소드입니다.
     /// 유저 접속 번호를 입력받습니다.
@@ -14,7 +15,7 @@ public class BtrfsManger {
             command.run("btrfs subvolume snapshot /gamedisk/original /gamedisk/" + userNum);
             return true;
         } catch (Exception e) {
-            e.printStackTrace();
+            error.getError(e);
             return false;
         }
     }
@@ -28,7 +29,7 @@ public class BtrfsManger {
             command.run("btrfs subvolume delete /gamedisk/" + userNum);
             return true;
         } catch (Exception e) {
-            e.printStackTrace();
+            error.getError(e);
             return false;
         }
     }

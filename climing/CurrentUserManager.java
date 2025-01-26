@@ -17,10 +17,9 @@ public class CurrentUserManager {
     private final int numOfUser = 10;       // 최대 동시 접속 가능한 유저의 수를 지정합니다.
 
     // 이너 클래스를 사용해 현재 접속 유저를 저장합니다.
-    private class CurUserData {
+    private static class CurUserData {
         public int userNum = 0;             // 유저 접속 번호
-        public String id = null;           // 유저 uid
-        public String privateKey = null;    // WireGuard VPN의 Client Private Key
+        public String id = null;           // 유저 id
     }
 
     // CurUserDatd의 객체를 최대 동시 접속 가능한 유저의 수만큼 생성합니다.
@@ -39,12 +38,12 @@ public class CurrentUserManager {
     /// 유저 추가 기능
     /// 사용자의 ID (String)을 입력합니다.
     /// 유저 접속 번호를 반환합니다.
-    public int addUser(String id) {
+    public int login(String id, String pw, String clientPublicKey) {
         // 로그인하고자 하는 유저가 이미 로그인되어 있는지 확인합니다.
         // 중복 로그인의 경우 오류 코드 -2를 반환합니다.
         for (int i = 0; i < numOfUser; i++) {
             if(user[i].id != null && user[i].id.equals(id)) {
-                return -2;
+                return -4;
             }
          }
 
@@ -57,54 +56,59 @@ public class CurrentUserManager {
                 break;
             }
         }
-        // 만약 세션이 가득 찬 경우(유저 접속 번호가 가득 찬 경우) -3을 반환합니다.
+        // 만약 세션이 가득 찬 경우(유저 접속 번호가 가득 찬 경우) -5을 반환합니다.
         if(curUser == null) {
-            return -3;
+            return -5;
         }
 
-        curUser.privateKey = wireGuard.addPeer(curUser.userNum);
-        btrfs.addVolume(curUser.userNum);
-        iscsi.addTarget(curUser.userNum);
+        // WireGuard VPN에 Peer를 추가합니다. Peer 추가 실패 시 에러 코드 -13을 반환합니다.
+        if(wireGuard.addPeer(curUser.userNum, clientPublicKey) == false)
+            return -13;
 
-        // WireGuard, Btrfs, iSCSI 추가
+        // 새로운 Btrfs 서브볼륨을 생성합니다. 생성 실패 시 에러 코드 -12를 반환합니다.
+        if(btrfs.addVolume(curUser.userNum) == false)
+            return -12;
+
+        // 새로운 iSCSI Target을 추가하고 생성한 서브볼륨과 연결합니다. 실패 시 에러 코드 -11을 반환합니다.
+        if(iscsi.addTarget(curUser.userNum) == false)
+            return -11;
 
         return curUser.userNum;    // 유저 접속 번호 반환
     }
 
-    ///유저 접속 번호를 통해 WireGuard VPN의 비밀키를 획득합니다.
-    /// addUser 메소드를 통해 유저를 생성한 직후에 사용하는 것을 추천합니다.
-    /// 잘못된 유저 접속 번호를 입력한 경우 null이 반환됩니다.
-    public String getPrivateKey(int userNum) {
-        for(int i = 0; i < numOfUser; i++) {
-            if(userNum == user[i].userNum) {
-                return user[i].privateKey;
-            }
-        }
-        return "-4";
-    }
-
     /// 유저 제거 기능 (로그아웃)
     /// 유저 접속 번호를 입력받습니다.
-    /// 정상적으로 유저가 제거되었을 시 true,
-    /// 잘못된 유저 접속 번호가 입력되었을 시 false를 반환합니다.
-    public boolean removeUser(int userNum) {
+    /// 정상적으로 유저가 제거되었을 시 0을 반환하고,
+    /// 잘못된 유저 접속 번호가 입력되었을 시 -6 반환합니다.
+    public int logout(int userNum) {
+        // 유저 접속 번호가 현재 할당되어 있는지 확인합니다.
         boolean isUserExist = false;
         for(int i = 0; i < numOfUser; i++) {
-            if(userNum == user[i].userNum && user[i].id != null && user[i].privateKey != null) {
+            if(userNum == user[i].userNum && user[i].id != null) {
                 user[i].id = null;
-                user[i].privateKey = null;
                 isUserExist = true;
                 break;
             }
         }
+        //유저 접속 번호가 할당되어있지 않을 경우(잘못된 유저 접속 번호가 입력되었을 경우) 에러 코드 -6을 반환합니다.
         if(!isUserExist) {
-            System.out.println("잘못된 유저 접속 번호입니다.");
-            return false;
+            return -6;
         }
 
-        iscsi.removeTarget(userNum);
-        btrfs.removeVolume(userNum);
-        wireGuard.removePeer(userNum);
-        return true;
+        // iscsi Target을 제거합니다. 제거 실패 시 오류 코드 -11을 반환합니다.
+        if(iscsi.removeTarget(userNum) == false)
+            return -11;
+
+        // btrfs 서브볼륨을 제거합니다. 제거 실패 시 오류 코드 -12를 반환합니다.
+        if(btrfs.removeVolume(userNum) == false)
+            return -12;
+
+        // WireGuard VPN Peer를 제거합니다. 제거 실패 시 오류 코드 -11을 반환합니다.
+        if(wireGuard.removePeer(userNum) == false)
+            return -13;
+
+        // 성공적으로 유저 제거 시 0을 반환합니다.
+        return 0;
     }
 }
+
