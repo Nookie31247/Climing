@@ -1,0 +1,30 @@
+import subprocess
+
+# 설정 파일 저장 경로
+wg_config_path = 'C:\Program Files\WireGuard\project.conf'
+
+# WireGuard 설정 내용
+wg_config = """
+[Interface]
+PrivateKey = 0GvPyo7exqPAL79qMavz1RD2MKU+lsOlUWQGvojZlHU=
+Address = 192.168.135.10/32
+
+[Peer]
+PublicKey = xzXyB7CPZ4z2L+BK2dXNZKRLH/Mt0Cly43skf1EIGj8=
+AllowedIPs = 192.168.135.1/32
+Endpoint = 122.42.50.148:44444
+PersistentKeepalive = 25
+"""
+
+# 파일을 관리자 권한으로 생성하기
+def create_wg_config():
+    try:
+        subprocess.run(['sudo', 'tee', wg_config_path], input=wg_config.encode(), check=True)
+        print(f"WireGuard 설정 파일이 {wg_config_path}에 저장되었습니다.")
+    except subprocess.CalledProcessError as e:
+        print(f"파일 생성 실패: {e}")
+        return False
+    return True
+
+# 파일 생성
+create_wg_config()
