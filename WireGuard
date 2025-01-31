@@ -53,3 +53,5 @@ connect_button.pack(pady=20)
 
 # GUI 실행
 root.mainloop()
+
+
