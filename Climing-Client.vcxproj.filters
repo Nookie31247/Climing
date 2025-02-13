@@ -18,15 +18,12 @@
     <ClInclude Include="iscsi.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="iSCSIModule.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="iSCSIModule.cpp">
+    <ClCompile Include="main.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="iscsi.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
