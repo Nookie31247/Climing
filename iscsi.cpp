@@ -10,7 +10,7 @@ void Iscsi::executeCommand(const std::wstring& command) {
     HANDLE hReadPipe, hWritePipe; // 읽기 및 쓰기 핸들 선언
     // 파이프 생성 (읽기와 쓰기용)
     if (!CreatePipe(&hReadPipe, &hWritePipe, &sa, 0)) {
-        std::cerr << "CreatePipe failed." << std::endl; // 실패 시 에러 메시지 출력
+        std::cerr << "파이프 생성 실패." << std::endl; // 실패 시 에러 메시지 출력
         return; // 함수 종료
     }
 
