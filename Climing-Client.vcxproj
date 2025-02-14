@@ -128,10 +128,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="iscsi.h" />
-    <ClInclude Include="iSCSIModule.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="iSCSIModule.cpp" />
+    <ClCompile Include="iscsi.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
