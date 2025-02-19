@@ -1,8 +1,6 @@
-#include <iostream>
-#include <vector>
-#include <windows.h>
+#include "iscsi.h"
 
-void executeCommand(const std::wstring& command) {
+void Iscsi::executeCommand(const std::wstring& command) {
     // 파이프를 위한 보안 속성 설정
     SECURITY_ATTRIBUTES sa;
     sa.nLength = sizeof(SECURITY_ATTRIBUTES);
@@ -48,7 +46,7 @@ void executeCommand(const std::wstring& command) {
 }
 
 // 관리자 권한 체크 함수
-bool isAdmin() {
+bool Iscsi::isAdmin() {
     HANDLE token;
     if (OpenProcessToken(GetCurrentProcess(), TOKEN_QUERY, &token)) {
         DWORD size;
@@ -62,7 +60,7 @@ bool isAdmin() {
 }
 
 // 관리자 권한으로 다시 실행하는 함수
-void runAsAdmin() {
+void Iscsi::runAsAdmin() {
     wchar_t modulePath[MAX_PATH];
     GetModuleFileNameW(NULL, modulePath, MAX_PATH);
     std::wstring command = L"\"" + std::wstring(modulePath) + L"\" %*";
