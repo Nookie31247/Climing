@@ -1,0 +1,4 @@
+C:\Project\Capston\Climing_Client\x64\Debug\Ijwhost.dll
+C:\Project\Capston\Climing_Client\x64\Debug\CppCode.deps.json
+C:\Project\Capston\Climing_Client\x64\Debug\CppCode.runtimeconfig.json
+C:\Project\Capston\Climing_Client\CppCode\x64\Debug\CppCode.genruntimeconfig.cache
