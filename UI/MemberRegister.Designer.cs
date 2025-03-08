@@ -1,4 +1,4 @@
-﻿namespace WinFormsApp2
+﻿namespace Climing
 {
     partial class MemberRegister
     {
@@ -22,10 +22,8 @@
 
         private void InitializePlaceholder()
         {
-            SetPlaceholder(txtUsername, "닉네임 입력");
-            SetPlaceholder(txtUserID, "아이디 입력");
-            SetPlaceholder(txtPassword, "비밀번호 입력");
-            SetPlaceholder(txtPasswordCheck, "비밀번호 확인 입력");
+            SetPlaceholder(TxtUserNickName, "닉네임 입력");
+            SetPlaceholder(TxtUserID, "아이디 입력");        
         }
         #region Windows Form Designer generated code
 
@@ -38,26 +36,30 @@
             MemberRegisterButton = new Button();
             MemberRegisterCancelButton = new Button();
             IDlabel = new Label();
-            PassWordlabel = new Label();
+            PassWordLabel = new Label();
             PassWordChecklabel = new Label();
-            txtUserID = new TextBox();
-            txtPassword = new TextBox();
-            txtPasswordCheck = new TextBox();
-            txtUsername = new TextBox();
+            TxtUserID = new TextBox();
+            TxtPassword = new TextBox();
+            TxtPasswordCheck = new TextBox();
+            TxtUserNickName = new TextBox();
             UserNamelabel = new Label();
             MemberRegisterLabel = new Label();
-            process1 = new System.Diagnostics.Process();
             닉네임글자제한 = new Label();
             아이디길이제한 = new Label();
             비밀번호제한 = new Label();
-            button1 = new Button();
+            NickNameCheck = new Button();
+            UserIDcheck = new Button();
+            NickNameCheckLabel = new Label();
+            UserIDCheckLabel = new Label();
+            PasswordLabel2 = new Label();
+            PasswordCheckLabel2 = new Label();
             SuspendLayout();
             // 
             // MemberRegisterButton
             // 
-            MemberRegisterButton.BackColor = Color.Orange;
+            MemberRegisterButton.BackColor = Color.FromArgb(255, 128, 0);
             MemberRegisterButton.ForeColor = Color.White;
-            MemberRegisterButton.Location = new Point(248, 313);
+            MemberRegisterButton.Location = new Point(212, 323);
             MemberRegisterButton.Name = "MemberRegisterButton";
             MemberRegisterButton.Size = new Size(90, 35);
             MemberRegisterButton.TabIndex = 0;
@@ -68,7 +70,7 @@
             // MemberRegisterCancelButton
             // 
             MemberRegisterCancelButton.BackColor = Color.FromArgb(255, 192, 128);
-            MemberRegisterCancelButton.Location = new Point(362, 313);
+            MemberRegisterCancelButton.Location = new Point(342, 323);
             MemberRegisterCancelButton.Name = "MemberRegisterCancelButton";
             MemberRegisterCancelButton.Size = new Size(90, 35);
             MemberRegisterCancelButton.TabIndex = 1;
@@ -80,65 +82,67 @@
             // 
             IDlabel.AutoSize = true;
             IDlabel.ForeColor = Color.White;
-            IDlabel.Location = new Point(208, 165);
+            IDlabel.Location = new Point(179, 171);
             IDlabel.Name = "IDlabel";
             IDlabel.Size = new Size(34, 14);
             IDlabel.TabIndex = 2;
             IDlabel.Text = "아이디";
             // 
-            // PassWordlabel
+            // PassWordLabel
             // 
-            PassWordlabel.AutoSize = true;
-            PassWordlabel.ForeColor = Color.White;
-            PassWordlabel.Location = new Point(199, 192);
-            PassWordlabel.Name = "PassWordlabel";
-            PassWordlabel.Size = new Size(43, 14);
-            PassWordlabel.TabIndex = 3;
-            PassWordlabel.Text = "비밀번호";
+            PassWordLabel.AutoSize = true;
+            PassWordLabel.ForeColor = Color.White;
+            PassWordLabel.Location = new Point(170, 216);
+            PassWordLabel.Name = "PassWordLabel";
+            PassWordLabel.Size = new Size(43, 14);
+            PassWordLabel.TabIndex = 3;
+            PassWordLabel.Text = "비밀번호";
             // 
             // PassWordChecklabel
             // 
             PassWordChecklabel.AutoSize = true;
             PassWordChecklabel.ForeColor = Color.White;
-            PassWordChecklabel.Location = new Point(178, 217);
+            PassWordChecklabel.Location = new Point(149, 261);
             PassWordChecklabel.Name = "PassWordChecklabel";
             PassWordChecklabel.Size = new Size(64, 14);
             PassWordChecklabel.TabIndex = 4;
             PassWordChecklabel.Text = "비밀번호 확인";
             // 
-            // txtUserID
+            // TxtUserID
             // 
-            txtUserID.Location = new Point(248, 162);
-            txtUserID.Name = "txtUserID";
-            txtUserID.Size = new Size(150, 22);
-            txtUserID.TabIndex = 5;
+            TxtUserID.Location = new Point(219, 168);
+            TxtUserID.Name = "TxtUserID";
+            TxtUserID.Size = new Size(150, 22);
+            TxtUserID.TabIndex = 5;
             // 
-            // txtPassword
+            // TxtPassword
             // 
-            txtPassword.Location = new Point(248, 189);
-            txtPassword.Name = "txtPassword";
-            txtPassword.Size = new Size(150, 22);
-            txtPassword.TabIndex = 6;
+            TxtPassword.Location = new Point(219, 213);
+            TxtPassword.Name = "TxtPassword";
+            TxtPassword.Size = new Size(150, 22);
+            TxtPassword.TabIndex = 6;
+            TxtPassword.UseSystemPasswordChar = true;
             // 
-            // txtPasswordCheck
+            // TxtPasswordCheck
             // 
-            txtPasswordCheck.Location = new Point(248, 217);
-            txtPasswordCheck.Name = "txtPasswordCheck";
-            txtPasswordCheck.Size = new Size(150, 22);
-            txtPasswordCheck.TabIndex = 7;
+            TxtPasswordCheck.Location = new Point(219, 258);
+            TxtPasswordCheck.Name = "TxtPasswordCheck";
+            TxtPasswordCheck.Size = new Size(150, 22);
+            TxtPasswordCheck.TabIndex = 7;
+            TxtPasswordCheck.UseSystemPasswordChar = true;
             // 
-            // txtUsername
+            // TxtUserNickName
             // 
-            txtUsername.Location = new Point(248, 134);
-            txtUsername.Name = "txtUsername";
-            txtUsername.Size = new Size(150, 22);
-            txtUsername.TabIndex = 9;
+            TxtUserNickName.Location = new Point(219, 123);
+            TxtUserNickName.Name = "TxtUserNickName";
+            TxtUserNickName.Size = new Size(150, 22);
+            TxtUserNickName.TabIndex = 9;
             // 
             // UserNamelabel
             // 
             UserNamelabel.AutoSize = true;
             UserNamelabel.ForeColor = Color.White;
-            UserNamelabel.Location = new Point(208, 137);
+            UserNamelabel.Location = new Point(179, 126);
             UserNamelabel.Name = "UserNamelabel";
             UserNamelabel.Size = new Size(34, 14);
             UserNamelabel.TabIndex = 8;
@@ -149,39 +153,25 @@
             MemberRegisterLabel.AutoSize = true;
             MemberRegisterLabel.Font = new Font("맑은 고딕", 24F, FontStyle.Regular, GraphicsUnit.Point, 129);
             MemberRegisterLabel.ForeColor = Color.White;
-            MemberRegisterLabel.Location = new Point(250, 77);
+            MemberRegisterLabel.Location = new Point(219, 60);
             MemberRegisterLabel.Name = "MemberRegisterLabel";
             MemberRegisterLabel.Size = new Size(148, 45);
             MemberRegisterLabel.TabIndex = 10;
             MemberRegisterLabel.Text = "회원가입";
             // 
-            // process1
-            // 
-            process1.StartInfo.Domain = "";
-            process1.StartInfo.LoadUserProfile = false;
-            process1.StartInfo.Password = null;
-            process1.StartInfo.StandardErrorEncoding = null;
-            process1.StartInfo.StandardInputEncoding = null;
-            process1.StartInfo.StandardOutputEncoding = null;
-            process1.StartInfo.UseCredentialsForNetworkingOnly = false;
-            process1.StartInfo.UserName = "";
-            process1.SynchronizingObject = this;
-            process1.ErrorDataReceived += process1_ErrorDataReceived;
-            process1.Exited += process1_Exited;
-            // 
             // 닉네임글자제한
             // 
             닉네임글자제한.AutoSize = true;
-            닉네임글자제한.Location = new Point(485, 134);
+            닉네임글자제한.Location = new Point(443, 126);
             닉네임글자제한.Name = "닉네임글자제한";
             닉네임글자제한.Size = new Size(186, 14);
             닉네임글자제한.TabIndex = 11;
-            닉네임글자제한.Text = "한글 2~6글자 이내, 영문 16자이내로 작성";
+            닉네임글자제한.Text = "한글 2~5글자 이내, 영문 16자이내로 작성";
             // 
             // 아이디길이제한
             // 
             아이디길이제한.AutoSize = true;
-            아이디길이제한.Location = new Point(485, 165);
+            아이디길이제한.Location = new Point(443, 171);
             아이디길이제한.Name = "아이디길이제한";
             아이디길이제한.Size = new Size(158, 14);
             아이디길이제한.TabIndex = 12;
@@ -190,47 +180,101 @@
             // 비밀번호제한
             // 
             비밀번호제한.AutoSize = true;
-            비밀번호제한.Location = new Point(485, 196);
+            비밀번호제한.Location = new Point(443, 216);
             비밀번호제한.Name = "비밀번호제한";
-            비밀번호제한.Size = new Size(201, 14);
+            비밀번호제한.Size = new Size(128, 14);
             비밀번호제한.TabIndex = 13;
-            비밀번호제한.Text = "영문,숫자, 대문자, 특수기호를 포함한 32자이내";
+            비밀번호제한.Text = "영문,숫자를 포함한 64자이내";
             // 
-            // button1
+            // NickNameCheck
             // 
-            button1.Location = new Point(404, 130);
-            button1.Name = "button1";
-            button1.Size = new Size(75, 23);
-            button1.TabIndex = 14;
-            button1.Text = "button1";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            NickNameCheck.ForeColor = Color.Black;
+            NickNameCheck.Location = new Point(375, 123);
+            NickNameCheck.Name = "NickNameCheck";
+            NickNameCheck.Size = new Size(62, 23);
+            NickNameCheck.TabIndex = 14;
+            NickNameCheck.Text = "닉네임확인";
+            NickNameCheck.UseVisualStyleBackColor = true;
+            NickNameCheck.Click += NickNameCheck_Click;
+            // 
+            // UserIDcheck
+            // 
+            UserIDcheck.ForeColor = Color.Black;
+            UserIDcheck.Location = new Point(375, 168);
+            UserIDcheck.Name = "UserIDcheck";
+            UserIDcheck.Size = new Size(62, 23);
+            UserIDcheck.TabIndex = 16;
+            UserIDcheck.Text = "아이디확인";
+            UserIDcheck.UseVisualStyleBackColor = true;
+            UserIDcheck.Click += UserIdCheck_Click;
+            // 
+            // NickNameCheckLabel
+            // 
+            NickNameCheckLabel.AutoSize = true;
+            NickNameCheckLabel.Location = new Point(219, 148);
+            NickNameCheckLabel.Name = "NickNameCheckLabel";
+            NickNameCheckLabel.Size = new Size(0, 14);
+            NickNameCheckLabel.TabIndex = 17;
+            // 
+            // UserIDCheckLabel
+            // 
+            UserIDCheckLabel.AutoSize = true;
+            UserIDCheckLabel.Location = new Point(219, 193);
+            UserIDCheckLabel.Name = "UserIDCheckLabel";
+            UserIDCheckLabel.Size = new Size(0, 14);
+            UserIDCheckLabel.TabIndex = 18;
+            // 
+            // PasswordLabel2
+            // 
+            PasswordLabel2.AutoSize = true;
+            PasswordLabel2.Location = new Point(221, 238);
+            PasswordLabel2.Name = "PasswordLabel2";
+            PasswordLabel2.Size = new Size(0, 14);
+            PasswordLabel2.TabIndex = 19;
+            // 
+            // PasswordCheckLabel2
+            // 
+            PasswordCheckLabel2.AutoSize = true;
+            PasswordCheckLabel2.Location = new Point(219, 283);
+            PasswordCheckLabel2.Name = "PasswordCheckLabel2";
+            PasswordCheckLabel2.Size = new Size(0, 14);
+            PasswordCheckLabel2.TabIndex = 20;
             // 
             // MemberRegister
             // 
-            AutoScaleDimensions = new SizeF(7F, 14F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AccessibleDescription = "";
+            AutoScaleDimensions = new SizeF(96F, 96F);
+            AutoScaleMode = AutoScaleMode.Dpi;
             BackColor = Color.FromArgb(30, 30, 30);
             ClientSize = new Size(704, 441);
-            Controls.Add(button1);
+            Controls.Add(PasswordCheckLabel2);
+            Controls.Add(PasswordLabel2);
+            Controls.Add(UserIDCheckLabel);
+            Controls.Add(NickNameCheckLabel);
+            Controls.Add(UserIDcheck);
+            Controls.Add(NickNameCheck);
             Controls.Add(비밀번호제한);
             Controls.Add(아이디길이제한);
             Controls.Add(닉네임글자제한);
             Controls.Add(MemberRegisterLabel);
-            Controls.Add(txtUsername);
+            Controls.Add(TxtUserNickName);
             Controls.Add(UserNamelabel);
-            Controls.Add(txtPasswordCheck);
-            Controls.Add(txtPassword);
-            Controls.Add(txtUserID);
+            Controls.Add(TxtPasswordCheck);
+            Controls.Add(TxtPassword);
+            Controls.Add(TxtUserID);
             Controls.Add(PassWordChecklabel);
-            Controls.Add(PassWordlabel);
+            Controls.Add(PassWordLabel);
             Controls.Add(IDlabel);
             Controls.Add(MemberRegisterCancelButton);
             Controls.Add(MemberRegisterButton);
             Font = new Font("Roboto", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             ForeColor = Color.White;
+            FormBorderStyle = FormBorderStyle.FixedDialog;
+            MaximumSize = new Size(1080, 720);
+            MinimumSize = new Size(720, 480);
             Name = "MemberRegister";
-            Text = "MemberRegister";
+            Text = "Climing";
+            FormClosing += MemberRegister_FormClosing;
             ResumeLayout(false);
             PerformLayout();
         }
@@ -240,18 +284,22 @@
         private Button MemberRegisterButton;
         private Button MemberRegisterCancelButton;
         private Label IDlabel;
-        private Label PassWordlabel;
+        private Label PassWordLabel;
         private Label PassWordChecklabel;
-        private TextBox txtUserID;
-        private TextBox txtPassword;
-        private TextBox txtPasswordCheck;
-        private TextBox txtUsername;
+        private TextBox TxtUserID;
+        private TextBox TxtPassword;
+        private TextBox TxtPasswordCheck;
+        private TextBox TxtUserNickName;
         private Label UserNamelabel;
         private Label MemberRegisterLabel;
-        private System.Diagnostics.Process process1;
         private Label 비밀번호제한;
         private Label 아이디길이제한;
         private Label 닉네임글자제한;
-        private Button button1;
+        private Button NickNameCheck;
+        private Button UserIDcheck;
+        private Label NickNameCheckLabel;
+        private Label UserIDCheckLabel;
+        private Label PasswordLabel2;
+        private Label PasswordCheckLabel2;
     }
 }

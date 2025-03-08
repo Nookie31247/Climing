@@ -1,4 +1,4 @@
-namespace WinFormsApp2
+namespace Climing
 {
     internal static class Program
     {
