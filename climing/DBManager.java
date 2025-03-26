@@ -1,33 +1,47 @@
 package climing;
 
+import javax.xml.transform.Result;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
-/// 데이터베이스와 연결하는 클래스
-/// 비밀번호 입력시 반드시 원문이 아닌 암호화한 해시값을 입력할 것
+/// 데이터베이스와 연결하여 데이터를 주고받는 클래스
 public class DBManager {
-    ErrorLogManager error = new ErrorLogManager();
-    Connection connection = null;
-    PreparedStatement preparedStatement = null;
-    ResultSet resultSet = null;
+    static Connection connection = null;
+
+    /// 게임 데이터를 저장하기 위한 클래스
+    public static class Game {
+        public String name;         // 게임 이름
+        public String imageUrl;     // 게임 이미지 URL
+        public String company;      // 게임 제작사
+        public String genre;        // 게임 장르
+        public String dirPath;      // 게임 실행 경로
+        public int identifyNum;     // 게임 식별 번호
+    }
 
     // 생성자에서 DB와 연결
     DBManager() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-//            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/climingDB",
-//                    "climingService",
-//                    "qwer1234");
-            connection = DriverManager.getConnection("jdbc:mysql://192.168.219.130:3306/climingDB",
-                    "testuser",
-                    "12345678");
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/climingDB",
+                    "climingService",
+                    "qwer1234");
         } catch (SQLException | ClassNotFoundException e) {
-            error.getError(e);
+            ErrorLogManager.getError(e);
         }
     }
 
-    /// ID와 비밀번호를 입력하면 해당 값이 올바르게 입력되었는지 확인합니다.
-    /// 로그인 시 사용합니다.
-    public String checkAccount(String id, String pw){
+    /**
+     * ID와 비밀번호를 입력하면 해당 값이 올바르게 입력되었는지 확인합니다.
+     * 로그인 시 사용합니다.
+     * @param id 로그인할 아이디
+     * @param pw 로그인할 비밀번호
+     * @return 로그인 성공 시 유저 닉네임을 반환하고, 로그인 실패 시 에러 코드를 반환
+     */
+    public static String checkAccount(String id, String pw){
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
         try {
             // SQL 쿼리문을 입력합니다.
             preparedStatement = connection.prepareStatement("SELECT username FROM user " +
@@ -46,28 +60,35 @@ public class DBManager {
             }
         } catch (SQLException e) {
             // 기타 SQL 실행 과정에서 에러가 발생했을 경우 "-7"을 반환합니다.
-            error.getError(e);
+            ErrorLogManager.getError(e);
             return "-7";
         } finally {
+            // 명령어 실행이 끝난 후 PreparedStatement와 ResultSet를 초기화합니다.
             try {
                 if(resultSet != null) {
                     resultSet.close();
-                    resultSet = null;
                 }
 
                 if(preparedStatement != null) {
                     preparedStatement.close();
-                    preparedStatement = null;
                 }
             } catch (SQLException e) {
-                error.getError(e);
+                ErrorLogManager.getError(e);
             }
         }
     }
 
-    /// ID, 비밀번호, 닉네임을 입력하여 새로운 계정을 추가합니다.
-    /// 회원가입 기능에서 사용합니다.
-    public int createAccount(String id, String pw, String username) {
+    /**
+     * 새로운 계정을 추가합니다. 회원가입 시 사용됩니다.
+     * @param id 추가할 아이디
+     * @param pw 추가할 비밀번호
+     * @param username 추가할 닉네임
+     * @return 에러 코드
+     */
+    public static int createAccount(String id, String pw, String username) {
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
         try {
             // 매개변수로 입력받은 ID와 동일한 ID가 이미 있는지 확인합니다.
             preparedStatement = connection.prepareStatement("SELECT COUNT(*) FROM user WHERE id = ?");
@@ -105,7 +126,7 @@ public class DBManager {
             return 0;
         } catch (SQLException e) {
             // 기타 SQL 관련 에러 발생 시 -7을 반환합니다.
-            error.getError(e);
+            ErrorLogManager.getError(e);
             return -7;
         } finally {
             try {
@@ -119,14 +140,21 @@ public class DBManager {
                     preparedStatement = null;
                 }
             } catch (SQLException e) {
-                error.getError(e);
+                ErrorLogManager.getError(e);
             }
         }
     }
 
-    /// ID와 비밀번호를 입력받아 현재 존재하는 계정을 삭제할 때 사용됩니다.
-    /// 회원탈퇴 기능에서 사용합니다.
-    public int deleteAccount(String id, String pw) {
+    /**
+     * 서버에 저장된 계정을 삭제합니다. 회원탈퇴 시 사용됩니다.
+     * @param id 삭제할 아이디
+     * @param pw 삭제할 비밀번호
+     * @return 에러 코드
+     */
+    public static int deleteAccount(String id, String pw) {
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
         try {
             // 현재 유저를 삭제하는 SQL 쿼리문을 입력합니다.
             preparedStatement = connection.prepareStatement("DELETE FROM user " +
@@ -143,7 +171,7 @@ public class DBManager {
                 return -1;
         } catch (SQLException e) {
             // 기타 SQL 에러가 발생했을 경우 -7을 반환합니다.
-            error.getError(e);
+            ErrorLogManager.getError(e);
             return -7;
         } finally {
             try {
@@ -152,8 +180,49 @@ public class DBManager {
                     preparedStatement = null;
                 }
             } catch (SQLException e) {
-                error.getError(e);
+                ErrorLogManager.getError(e);
             }
         }
+    }
+
+    /**
+     * 서버에 저장된 게임 리스트를 불러옵니다.
+     * @return 게임 리스트
+     */
+    public static Game[] getGameList() {
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        List<Game> gameList = new ArrayList<>();
+        try {
+            preparedStatement = connection.prepareStatement("select * from game");
+            resultSet = preparedStatement.executeQuery();
+
+            while(resultSet.next()) {
+                Game game = new Game();
+
+                game.name = resultSet.getString("name");
+                game.imageUrl = resultSet.getString("imageUrl");
+                game.company = resultSet.getString("company");
+                game.genre = resultSet.getString("genre");
+                game.dirPath = resultSet.getString("dirPath");
+                game.identifyNum = resultSet.getInt("identifyNum");
+
+                gameList.add(game);
+            }
+        } catch (SQLException e) {
+            ErrorLogManager.getError(e);
+            return null;
+        } finally {
+            try {
+                if(preparedStatement != null) {
+                    preparedStatement.close();
+                    preparedStatement = null;
+                }
+            } catch (SQLException e) {
+                ErrorLogManager.getError(e);
+            }
+        }
+        return gameList.toArray(new Game[0]);
     }
 }

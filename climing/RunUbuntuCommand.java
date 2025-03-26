@@ -11,10 +11,15 @@ import java.util.List;
  */
 
 public class RunUbuntuCommand {
-    ErrorLogManager error = new ErrorLogManager();
 
     /// 우분투 명령어를 입력합니다. 콘솔의 출력 결과를 String으로 반환합니다.
-    public String run(String command) throws Exception {
+    /**
+     * 우분투 명령어를 실행합니다.
+     * @param command 실행할 명령어
+     * @return 명령어 실행 결과
+     * @throws Exception 명령어 실행 중 오류 발생시의 예외
+     */
+    public static String run(String command) throws Exception {
         System.out.println("명령어 입력: " + command);       // 디버그용 코드
         
         StringBuilder output = new StringBuilder();         // 출력값을 저장하는 변수
@@ -42,13 +47,13 @@ public class RunUbuntuCommand {
         // 명령어 실행 중 오류가 발생했을 시 오류를 출력합니다.
         BufferedReader errorReader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
         while ((line = errorReader.readLine()) != null) {
-            error.getError(line);
+            ErrorLogManager.getError(line);
         }
 
         // 명령어 종료 코드가 0이 아닐 시 오류 코드를 출력합니다.
         int exitCode = process.waitFor();
         if (exitCode != 0) {
-            error.getError("명령어 실행 중 오류 발생. 종료 코드: " + exitCode);
+            ErrorLogManager.getError("명령어 실행 중 오류 발생. 종료 코드: " + exitCode);
         }
 
         // 디버그용 코드
