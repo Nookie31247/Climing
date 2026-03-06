@@ -1,8 +1,31 @@
+# ==============================================================================
+# 1. Operating Systems (OS 시스템 파일)
+# ==============================================================================
+### Mac OS ###
+**/.DS_Store
+.AppleDouble
+.LSOverride
+
+### Windows ###
+**/Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+desktop.ini
+$RECYCLE.BIN/
+
+
+# ==============================================================================
+# 2. IDEs & Editors (에디터 설정 파일)
+# ==============================================================================
+### VS Code ###
+.vscode/
+
 ### IntelliJ IDEA ###
+.idea/
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/
-.idea/
+*.iml
 
 ### Eclipse ###
 .apt_generated
@@ -19,15 +42,168 @@ bin/
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/
-/dist/
 /nbdist/
 /.nb-gradle/
 
-### VS Code ###
-.vscode/
 
-### Mac OS ###
-**/.DS_Store
+# ==============================================================================
+# 3. Languages & Frameworks (언어 및 프레임워크 전용)
+# ==============================================================================
+### Python ###
+# 파이썬 컴파일된 파일 및 캐시
+__pycache__/
+*.py[cod]
+*$py.class
+# 가상환경 폴더 (venv, env 등)
+venv/
+.venv/
+env/
+.env/
+# 테스트 및 주피터 노트북 캐시
+.pytest_cache/
+.ipynb_checkpoints/
 
-### Windows ###
-**/Thumbs.db
+### Arduino ###
+# 아두이노 빌드 결과물 및 임시 파일
+build/
+*.elf
+*.hex
+*.bin
+.arduino*/
+
+### Node.js / React (Vite) ###
+node_modules/
+dist/
+dist-ssr/
+*.local
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+
+# ==============================================================================
+# 4. Visual Studio / C++ / .NET (공식 템플릿 통합)
+# ==============================================================================
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Ww][Ii][Nn]32/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Oo]ut/
+[Ll]og/
+[Ll]ogs/
+
+# Visual Studio 2015/2017 cache/options directory
+.vs/
+
+# MSTest test Results
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+
+# Visual C++ cache files
+ipch/
+*.aps
+*.ncb
+*.opendb
+*.opensdf
+*.sdf
+*.cachefile
+*.VC.db
+*.VC.VC.opendb
+
+# Files built by Visual Studio
+*_i.c
+*_p.c
+*_h.h
+*.ilk
+*.meta
+*.obj
+*.iobj
+*.pch
+*.pdb
+*.ipdb
+*.pgc
+*.pgd
+*.rsp
+*.sbr
+*.tlb
+*.tli
+*.tlh
+*.tmp
+*.tmp_proj
+*_wpftmp.csproj
+*.vspscc
+*.vssscc
+.builds
+*.pidb
+*.svclog
+*.scc
+
+# Profiler & Trace Files
+*.psess
+*.vsp
+*.vspx
+*.sap
+*.e2e
+
+# Code Coverage & Testing Tools
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user
+*.dotCover
+.axoCover/*
+!.axoCover/settings.json
+coverage*.json
+coverage*.xml
+coverage*.info
+*.coverage
+*.coveragexml
+_NCrunch_*
+.*crunch*.local.xml
+nCrunchTemp_*
+
+# Azure & Web Publish
+publish/
+*.[Pp]ublish.xml
+*.azurePubxml
+*.pubxml
+*.publishproj
+PublishScripts/
+csx/
+*.build.csdef
+
+# NuGet Packages
+*.nupkg
+*.snupkg
+**/[Pp]ackages/*
+!**/[Pp]ackages/build/
+
+# SQL Server files
+*.mdf
+*.ldf
+*.ndf
+
+# Others
+ClientBin/
+~$*
+*~
+*.dbmdl
+*.dbproj.schemaview
+*.jfm
+*.pfx
+*.publishsettings
