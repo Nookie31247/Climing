@@ -17,7 +17,8 @@
 - **프론트엔드**: C++/CLI, C#, .NET9, WinForms
 
 ## 시연 영상
-(나중에 추가하기)
+- 프로그램 시연 영상: https://youtu.be/quo2incTUtQ
+- 딜레이 테스트 영상: https://youtu.be/bMeM0-rVFKo
 
 ## 클라이언트 프로그램 흐름도
 ![클라이언트 흐름도](./readme_images/client_flowchart.png)
